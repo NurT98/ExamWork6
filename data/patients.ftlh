@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пациенты на ${date}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Пациенты на ${date}</h1>
+        <div>
+            <a href="/calendar" class="btn btn-secondary">Назад к календарю</a>
+        </div>
+    </div>
+
+    <#if patients?has_content>
+        <table class="table table-hover table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Время</th>
+                    <th>ФИО</th>
+                    <th>Дата рождения</th>
+                    <th>Тип пациента</th>
+                    <th>Анамнез</th>
+                </tr>
+            </thead>
+            <tbody>
+                <#list patients as patient>
+                    <tr>
+                        <td class="align-middle">${patient.time}</td>
+                        <td class="align-middle fw-bold">${patient.fullName}</td>
+                        <td class="align-middle">${patient.birthDate}</td>
+                        <td class="align-middle">
+                            <span class="badge ${(patient.type == 'Первичный')?string('bg-success', 'bg-warning text-dark')}">
+                                ${patient.type}
+                            </span>
+                        </td>
+                        <td class="align-middle">${patient.symptoms}</td>
+                    </tr>
+                </#list>
+            </tbody>
+        </table>
+    <#else>
+        <div class="alert alert-info">На этот день записей нет.</div>
+    </#if>
+</div>
+
+</body>
+</html>

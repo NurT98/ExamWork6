@@ -1,0 +1,20 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Расписание на ${currentMonth}</h1>
+
+    <div class="row row-cols-7 border">
+        <div class="col border p-2 bg-light">ПН</div>
+        <div class="col border p-2 bg-light">ВТ</div>
+        ...
+    </div>
+
+    <div class="row row-cols-7 border">
+        <#list calendarDays as day>
+            <div class="col border p-2" style="min-height: 100px;">
+                <strong>${day.dayNumber}</strong>
+                <#if day.count?? && (day.count > 0)>
+                    <a href="/patients?date=${day.date}" class="btn btn-sm btn-primary w-100">${day.count}</a>
+                </#if>
+            </div>
+        </#list>
+    </div>
+</div>
