@@ -17,10 +17,15 @@
             padding: 10px;
             background-color: #fff;
             transition: background-color 0.3s;
+            color: inherit;
+            text-decoration: none;
+        }
+        .calendar-cell:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
         }
         .calendar-cell.today {
             background-color: #e7f3ff;
-            position: relative;
         }
         .header-cell {
             background-color: #f8f9fa;
@@ -29,7 +34,7 @@
             padding: 10px;
             border: 1px solid #dee2e6;
         }
-        .btn-patient { font-size: 0.8rem; padding: 0.2rem 0.5rem; }
+        .btn-patient { font-size: 0.8rem; padding: 0.2rem 0.5rem; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -47,17 +52,20 @@
         <div class="header-cell">ВС</div>
 
         <#list calendarDays as day>
-            <div class="calendar-cell d-flex flex-column h-100 ${ (day.isToday?? && day.isToday)?string('today', '') }">
+            <a href="/patients?date=${day.date!''}" class="calendar-cell d-flex flex-column h-100 ${ (day.isToday?? && day.isToday)?string('today', '') }">
                 <div class="fw-bold text-secondary">${day.dayNumber!''}</div>
-
                 <#if day.count?? && (day.count > 0)>
                     <div class="mt-auto">
-                        <a href="/patients?date=${day.date!''}" class="btn btn-primary btn-sm w-100 btn-patient">
-                            ${day.count} записей
-                        </a>
+                        <span class="btn btn-primary btn-sm w-100 btn-patient">
+                            ${day.count}
+                            <#if day.count == 1>запись
+                            <#elseif day.count < 5>записи
+                            <#else>записей
+                            </#if>
+                        </span>
                     </div>
                 </#if>
-            </div>
+            </a>
         </#list>
     </div>
 </div>

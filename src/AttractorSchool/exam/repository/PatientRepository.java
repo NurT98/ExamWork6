@@ -23,7 +23,7 @@ public class PatientRepository {
             LocalDate currentDay = now.withDayOfMonth(day);
             String dateStr = currentDay.toString();
 
-            int patientsCount = random.nextInt(6) + 5;
+            int patientsCount = random.nextInt(6);
 
             for (int i = 0; i < patientsCount; i++) {
                 int hour = random.nextInt(9) + 9;
@@ -51,5 +51,13 @@ public class PatientRepository {
                 .filter(p -> p.getAppointmentDate().equals(date))
                 .sorted(Comparator.comparing(Patient::getTime))
                 .collect(Collectors.toList());
+    }
+
+    public void add(Patient patient) {
+        patients.add(patient);
+    }
+
+    public void removeByName(String fullName) {
+        patients.removeIf(p -> p.getFullName().equals(fullName));
     }
 }
