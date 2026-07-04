@@ -96,9 +96,15 @@ public class ExamServer extends BasicServer {
     private String validatePatient(Map<String, String> params) {
         if (!isValidBirthDate(params.get("birthDate"))) return "date";
 
+        LocalTime time = LocalTime.parse(params.get("time"));
+
+        if (time.isBefore(LocalTime.of(9, 0)) || time.isAfter(LocalTime.of(18, 0))) {
+            return "working_hours";
+        }
+
         LocalDateTime appointment = LocalDateTime.of(
                 LocalDate.parse(params.get("date")),
-                LocalTime.parse(params.get("time"))
+                time
         );
 
         if (appointment.isBefore(LocalDateTime.now())) return "past";

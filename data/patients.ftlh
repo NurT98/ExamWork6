@@ -17,9 +17,14 @@
 
 
     <#if query??>
-        <#if query?contains("error=interval")><div class="alert alert-danger mb-4">Ошибка: Прием пациента длится до 20 минут, выберите свободное время</div>
-        <#elseif query?contains("error=past")><div class="alert alert-danger mb-4">Ошибка: Вы выбрали прошедшее время.</div>
-        <#elseif query?contains("error=date")><div class="alert alert-danger mb-4">Ошибка: Некорректная дата рождения.</div>
+        <#if query?contains("error=interval")>
+            <div class="alert alert-danger mb-4">Ошибка: Прием пациента длится до 20 минут, выберите свободное время</div>
+        <#elseif query?contains("error=past")>
+            <div class="alert alert-danger mb-4">Ошибка: Вы выбрали прошедшее время.</div>
+        <#elseif query?contains("error=date")>
+            <div class="alert alert-danger mb-4">Ошибка: Некорректная дата рождения.</div>
+        <#elseif query?contains("error=working_hours")>
+            <div class="alert alert-danger mb-4">Ошибка: Запись доступна только с 09:00 до 18:00.</div>
         </#if>
     </#if>
 
